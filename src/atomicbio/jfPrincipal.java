@@ -63,6 +63,8 @@ public class jfPrincipal extends javax.swing.JFrame {
         jLblStatusBar = new javax.swing.JLabel();
         jProgressBar = new javax.swing.JProgressBar();
         jBtnManual = new javax.swing.JButton();
+        jBtnSalvar = new javax.swing.JButton();
+        jBtnVerificaBio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Atomiccodes - CadBio API");
@@ -92,6 +94,8 @@ public class jfPrincipal extends javax.swing.JFrame {
         jLblStatus.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLblStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLblStatus.setText("Cadastro Biométrico");
+
+        jLblBio.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jPnlLeitorInfo.setBorder(javax.swing.BorderFactory.createTitledBorder("Leitor Biometrico"));
         jPnlLeitorInfo.setName(""); // NOI18N
@@ -166,10 +170,24 @@ public class jfPrincipal extends javax.swing.JFrame {
             .addComponent(jProgressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jBtnManual.setText("Checar Digital Manual");
+        jBtnManual.setText("Checar Manual");
         jBtnManual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnManualActionPerformed(evt);
+            }
+        });
+
+        jBtnSalvar.setText("Gravar Digital");
+        jBtnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnSalvarActionPerformed(evt);
+            }
+        });
+
+        jBtnVerificaBio.setText("Verificar");
+        jBtnVerificaBio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnVerificaBioActionPerformed(evt);
             }
         });
 
@@ -187,13 +205,16 @@ public class jfPrincipal extends javax.swing.JFrame {
                         .addComponent(jBtnVerifyBio)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBtnManual))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPnlLeitorInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPnlLeitorInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jBtnSalvar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLblBio, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jBtnVerificaBio))
+                    .addComponent(jLblBio, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 45, Short.MAX_VALUE))
             .addComponent(jPnlStatusBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -211,7 +232,9 @@ public class jfPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtnGetTemplate)
                     .addComponent(jBtnVerifyBio)
-                    .addComponent(jBtnManual))
+                    .addComponent(jBtnManual)
+                    .addComponent(jBtnSalvar)
+                    .addComponent(jBtnVerificaBio))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPnlStatusBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -279,6 +302,48 @@ public class jfPrincipal extends javax.swing.JFrame {
         readBioAndMatch.start();
     }//GEN-LAST:event_jBtnManualActionPerformed
 
+    private void jBtnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSalvarActionPerformed
+        // TODO add your handling code here:
+        jLblStatusBar.setText("Iniciando Leitor Biométiroc");
+        AtomicBioReader atomicBioReader = new AtomicBioReader(
+                jLblBio, 
+                jTxtBioTemplate, 
+                jLblStatusBar, 
+                templateToVerify,
+                jProgressBar
+        );
+        jProgressBar.setIndeterminate(true);
+        
+        Thread writeBioReader = new Thread() {
+            @Override
+            public void run() {
+                atomicBioReader.WriteBio();
+            }
+        };
+        writeBioReader.start();
+    }//GEN-LAST:event_jBtnSalvarActionPerformed
+
+    private void jBtnVerificaBioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnVerificaBioActionPerformed
+        // TODO add your handling code here:
+        jLblStatusBar.setText("Iniciando Leitor Biométiroc");
+        AtomicBioReader atomicBioReader = new AtomicBioReader(
+                jLblBio, 
+                jTxtBioTemplate, 
+                jLblStatusBar, 
+                templateToVerify,
+                jProgressBar
+        );
+        jProgressBar.setIndeterminate(true);
+        
+        Thread writeBioReader = new Thread() {
+            @Override
+            public void run() {
+                atomicBioReader.ChebioId();
+            }
+        };
+        writeBioReader.start();
+    }//GEN-LAST:event_jBtnVerificaBioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -317,6 +382,8 @@ public class jfPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnGetTemplate;
     private javax.swing.JButton jBtnManual;
+    private javax.swing.JButton jBtnSalvar;
+    private javax.swing.JButton jBtnVerificaBio;
     private javax.swing.JButton jBtnVerifyBio;
     public static javax.swing.JLabel jLblBio;
     private javax.swing.JLabel jLblFirmValue;
