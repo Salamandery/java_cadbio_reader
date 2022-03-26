@@ -65,6 +65,10 @@ public class jfPrincipal extends javax.swing.JFrame {
         jBtnManual = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Atomiccodes - CadBio API");
+        setAlwaysOnTop(true);
+        setName("jfPrincipal"); // NOI18N
+        setResizable(false);
 
         jBtnGetTemplate.setText("Gerar Template");
         jBtnGetTemplate.addActionListener(new java.awt.event.ActionListener() {
