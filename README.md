@@ -1,40 +1,124 @@
-# idBio CADBIO Java Application
+# 🧬 AtomicBioReader - Sistema de Cadastro Biométrico
 
-Biometric Java Application API
+<div align="center">
+  <b>🇧🇷 Português | <a href="#english-version">🇺🇸 English below</a></b>
+</div>
 
-- SDK CADBIO is required
+---
 
-========================
-# BUILD OUTPUT DESCRIPTION
-========================
+## 📑 Sumário | Table of Contents
+- [Sobre o Projeto | About](#sobre-o-projeto--about)
+- [Tecnologias | Technologies](#tecnologias--technologies)
+- [Estrutura | Structure](#estrutura--structure)
+- [Execução | Running](#execução--running)
+- [Funcionalidades | Features](#funcionalidades--features)
+- [Modelos e Interfaces | Models & Interfaces](#modelos-e-interfaces--models--interfaces)
+- [Autor | Author](#autor--author)
 
-When you build an Java application project that has a main class, the IDE
-automatically copies all of the JAR
-files on the projects classpath to your projects dist/lib folder. The IDE
-also adds each of the JAR files to the Class-Path element in the application
-JAR files manifest file (MANIFEST.MF).
+---
 
-To run the project from the command line, go to the dist folder and
-type the following:
+## Sobre o Projeto | About
 
-java -jar "atomicbio.jar" 
+**PT-BR:**
+> Sistema desktop Java Swing para cadastro e verificação biométrica de digitais, utilizando dispositivos compatíveis com a biblioteca CIDBio. Permite capturar, salvar, verificar e identificar digitais, além de gerenciar informações de médicos.
 
-To distribute this project, zip up the dist folder (including the lib folder)
-and distribute the ZIP file.
+**EN:**
+> Java Swing desktop system for biometric fingerprint registration and verification, using devices compatible with the CIDBio library. Allows capturing, saving, verifying, and identifying fingerprints, as well as managing doctor information.
 
-Notes:
+---
 
-* If two JAR files on the project classpath have the same name, only the first
-JAR file is copied to the lib folder.
-* Only JAR files are copied to the lib folder.
-If the classpath contains other types of files or folders, these files (folders)
-are not copied.
-* If a library on the projects classpath also has a Class-Path element
-specified in the manifest,the content of the Class-Path element has to be on
-the projects runtime path.
-* To set a main class in a standard Java project, right-click the project node
-in the Projects window and choose Properties. Then click Run and enter the
-class name in the Main Class field. Alternatively, you can manually type the
-class name in the manifest Main-Class element.
+## 🚀 Tecnologias | Technologies
+- Java 8+
+- Java Swing (GUI)
+- Biblioteca CIDBio (integração com leitor biométrico)
 
-created by Rodolfo M F Abreu
+---
+
+## 🗂️ Estrutura | Structure
+```
+java_cadbio_reader/
+├── build.xml
+├── manifest.mf
+├── src/
+│   └── atomicbio/
+│       ├── AtomicBioReader.java         # Lógica de leitura/verificação biométrica
+│       ├── jfPrincipal.java             # Interface gráfica principal
+│       ├── Main.java                    # Ponto de entrada do sistema
+│       ├── interfaces/
+│       │   ├── BaseCrud.java            # Interface CRUD genérica
+│       │   └── Prestador.java           # Interface para prestadores (ex: médicos)
+│       └── models/
+│           └── Medicos.java             # Modelo de dados para médicos
+└── README.md
+```
+
+---
+
+## ⚙️ Execução | Running
+
+**PT-BR:**
+1. **Pré-requisitos:** Java 8+ instalado.
+2. **Compilação:**
+   - Use o comando abaixo na raiz do projeto:
+     ```bash
+     javac -cp "caminho/para/CIDBio.jar" -d build/ src/atomicbio/*.java src/atomicbio/interfaces/*.java src/atomicbio/models/*.java
+     ```
+3. **Execução:**
+   - Execute o sistema:
+     ```bash
+     java -cp "build;src;Caminho/para/CIDBio.jar" atomicbio.Main
+     ```
+   - O sistema abrirá a interface gráfica para cadastro biométrico.
+
+**EN:**
+1. **Prerequisites:** Java 8+ installed.
+2. **Compile:**
+   - Use the command below in the project root:
+     ```bash
+     javac -cp "path/to/CIDBio.jar" -d build/ src/atomicbio/*.java src/atomicbio/interfaces/*.java src/atomicbio/models/*.java
+     ```
+3. **Run:**
+   - Run the system:
+     ```bash
+     java -cp "build;src;path/to/CIDBio.jar" atomicbio.Main
+     ```
+   - The graphical interface for biometric registration will open.
+
+---
+
+## 🖥️ Funcionalidades | Features
+- **PT-BR:**
+  - Captura e exibição de digitais via leitor biométrico
+  - Geração e verificação de templates biométricos
+  - Identificação de pessoas por digital
+  - Cadastro e gerenciamento de médicos (modelo de exemplo)
+- **EN:**
+  - Capture and display fingerprints via biometric reader
+  - Generation and verification of biometric templates
+  - Person identification by fingerprint
+  - Doctor registration and management (example model)
+
+---
+
+## 🧩 Modelos e Interfaces | Models & Interfaces
+- `AtomicBioReader.java`: Lógica de captura, verificação e identificação biométrica.
+- `jfPrincipal.java`: Interface gráfica principal (Swing), integra com o leitor biométrico.
+- `Main.java`: Inicializa a interface principal.
+- `models/Medicos.java`: Exemplo de modelo de dados para médicos, implementa interface `Prestador`.
+- `interfaces/BaseCrud.java`: Interface genérica para operações CRUD.
+- `interfaces/Prestador.java`: Interface para entidades do tipo prestador (ex: médicos).
+
+---
+
+## 👤 Autor | Author
+
+<div align="center">
+  <b>Feito com 💙 para estudos de Java, Swing e biometria.<br/>
+  Made with 💙 for Java, Swing and biometrics studies.</b>
+</div>
+
+---
+
+<div align="center" id="english-version">
+  <b>🇺🇸 English version above | <a href="#top">🇧🇷 Versão em português acima</a></b>
+</div>
