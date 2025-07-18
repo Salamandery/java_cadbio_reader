@@ -1,5 +1,11 @@
 # 🧬 AtomicBioReader - Sistema de Cadastro Biométrico
 
+<p align="center">
+  <img src="https://img.shields.io/badge/Java-8%2B-blue?style=for-the-badge&logo=java"/>
+  <img src="https://img.shields.io/badge/Swing-GUI-green?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Desktop%20App-Java%20Swing-blueviolet?style=for-the-badge"/>
+</p>
+
 <div align="center">
   <b>🇧🇷 Português | <a href="#english-version">🇺🇸 English below</a></b>
 </div>
